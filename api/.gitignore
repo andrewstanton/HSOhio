@@ -1,0 +1,6 @@
+/wp-admin
+/*.php
+/wp-content/uploads
+/wp-content/index.php
+/wp-includes
+/.htaccess
