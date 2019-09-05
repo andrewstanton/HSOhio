@@ -42,11 +42,22 @@ const StyledMapNode = styled.div`
   }
 `
 
+const ComingSoon = styled.div`
+  background: ${Color.red};
+  color: white;
+  padding: 0.25rem;
+  font-weight: bold;
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
+  text-align: center;
+`
+
 const MapNode = node => {
   const data = node.node
   return (
     <StyledMapNode>
       <h4 className="location_name">{data.title}</h4>
+      {data.title === "Avon" && <ComingSoon>Coming Soon...</ComingSoon>}
       <div className="location_addressOne">{data.acf.address_one}</div>
       {data.acf.address_two ? (
         <div className="location_addressTwo">{data.acf.address_two}</div>

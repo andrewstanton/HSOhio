@@ -57,6 +57,15 @@ const Loading = styled.li`
   text-align: center;
 `
 
+const ComingSoon = styled.div`
+  background: ${Color.red};
+  color: white;
+  padding: 0.5rem;
+  float: right;
+  font-weight: bold;
+  border-radius: 0.5rem;
+`
+
 export const ClinicList = ({
   locations,
   searched,
@@ -72,6 +81,7 @@ export const ClinicList = ({
     {locations.map((loc, ix) => (
       <Clinic key={ix}>
         <h2>{loc.node.title}</h2>
+        {loc.node.title === "Avon" && <ComingSoon>Coming Soon...</ComingSoon>}
         <div>{loc.node.acf.address_one}</div>
         {loc.node.acf.address_two ? (
           <div>{loc.node.acf.address_two}</div>
