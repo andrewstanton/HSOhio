@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { darken } from "polished"
 import { rgba } from "polished"
 
 import { Color, Wrapper, Media } from "../../utilities"
@@ -22,7 +23,37 @@ const StyledInnerBanner = styled(Banner)`
     line-height: 2.25rem;
     margin-bottom: 1rem;
   }
+
+  position: relative;
 `
+
+export const StyledBottomBanner = styled.div`
+  background: ${Color.pink};
+  color: ${Color.white};
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+
+  a {
+    color: ${Color.white};
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: ${darken(0.3, Color.pink)};
+    }
+  }
+`
+
+export const BottomBanner = ({ children, ...props }) => (
+  <StyledBottomBanner {...props}>
+    <Wrapper>{children}</Wrapper>
+  </StyledBottomBanner>
+)
 
 const InnerBannerOverlay = styled.div`
   padding: 3rem;
@@ -38,10 +69,16 @@ const InnerBannerOverlay = styled.div`
   `}
 `
 
-export const InnerBanner = ({ children, height = "500px", ...props }) => (
+export const InnerBanner = ({
+  children,
+  bottomBanner,
+  height = "500px",
+  ...props
+}) => (
   <StyledInnerBanner height={height} {...props}>
     <Wrapper>
-      <InnerBannerOverlay>{children}</InnerBannerOverlay>
+      {children && <InnerBannerOverlay>{children}</InnerBannerOverlay>}
     </Wrapper>
+    {bottomBanner && bottomBanner()}
   </StyledInnerBanner>
 )

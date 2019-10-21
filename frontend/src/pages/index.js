@@ -1,11 +1,15 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 
 import styled from "styled-components"
 
 import Layout from "../components/layouts/Layout"
-import { Wrapper, Media } from "../components/utilities"
-import { ClinicLocator } from "../components/elements"
+import { Wrapper, Margin, Media } from "../components/utilities"
+import {
+  ClinicLocator,
+  InnerBanner,
+  BottomBanner,
+} from "../components/elements"
 
 const ContentSection = styled.div`
   display: grid;
@@ -20,11 +24,35 @@ const ContentSection = styled.div`
   `}
 `
 
+const StyledMargin = styled(Margin)`
+  display: inline-block;
+`
+
+const renderBanner = () => (
+  <BottomBanner>
+    What Does CLE Love To Do To Stay Fit?{" "}
+    <StyledMargin modifiers="ml2">
+      <Link to="/survey">Click Here To Take The Survey?</Link>
+    </StyledMargin>
+  </BottomBanner>
+)
+
+const IndexPageBanner = ({ promo }) => (
+  <InnerBanner
+    image={promo.featured_media.source_url}
+    height="600px"
+    bottomBanner={renderBanner}
+  >
+    <h1>{promo.title}</h1>
+    <div dangerouslySetInnerHTML={{ __html: promo.content }}></div>
+  </InnerBanner>
+)
+
 const IndexPage = ({ data }) => {
   const content = data.allWordpressPage.edges[0].node
   const locations = data.allWordpressWpLocation.edges
   return (
-    <Layout>
+    <Layout renderBanner={({ promo }) => <IndexPageBanner promo={promo} />}>
       <Wrapper>
         <ContentSection>
           <div>
