@@ -6,7 +6,14 @@ import { rgba } from "polished"
 import { Color, Wrapper, Media } from "../../utilities"
 
 export const Banner = styled.div`
-  background: ${props => `url(${props.image})` || "grey"};
+${props =>
+  props.image
+    ? `
+  background-image: url(${props.image});
+`
+    : `
+  background: grey;
+`}
   background-position: ${props => props.position || "center center"};
   overflow: hidden;
   background-size: cover;

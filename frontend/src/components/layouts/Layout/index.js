@@ -25,7 +25,7 @@ const Body = styled.div`
   }
 `
 
-const Layout = ({ renderBanner, children }) => {
+const Layout = ({ renderBanner, promo, children }) => {
   return (
     <StaticQuery
       query={graphql`
@@ -34,22 +34,11 @@ const Layout = ({ renderBanner, children }) => {
             name
             description
           }
-          allWordpressWpPromo(sort: { fields: date, order: DESC }, limit: 1) {
-            edges {
-              node {
-                title
-                featured_media {
-                  source_url
-                }
-                content
-              }
-            }
-          }
         }
       `}
       render={data => {
-        const { allWordpressWpPromo, wordpressSiteMetadata } = data
-        const promo = allWordpressWpPromo.edges[0].node
+        const { wordpressSiteMetadata } = data
+        // const promo = allWordpressWpPromo.edges[0].node
         return (
           <div>
             <GlobalStyles />
@@ -58,7 +47,7 @@ const Layout = ({ renderBanner, children }) => {
               description={wordpressSiteMetadata.description}
             />
             <Header siteMetadata={wordpressSiteMetadata} />
-            {renderBanner && renderBanner({ promo })}
+            {renderBanner && renderBanner()}
             <Body>{children}</Body>
             <Footer siteMetadata={wordpressSiteMetadata} />
           </div>

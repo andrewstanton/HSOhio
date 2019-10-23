@@ -37,9 +37,9 @@ const renderBanner = () => (
   </BottomBanner>
 )
 
-const IndexPageBanner = ({ promo }) => (
+const IndexPageBanner = ({ promo = null }) => (
   <InnerBanner
-    image={promo.featured_media.source_url}
+    image={promo ? promo.featured_media.source_url : null}
     height="600px"
     bottomBanner={renderBanner}
   >
@@ -49,10 +49,12 @@ const IndexPageBanner = ({ promo }) => (
 )
 
 const IndexPage = ({ data }) => {
-  const content = data.allWordpressPage.edges[0].node
-  const locations = data.allWordpressWpLocation.edges
+  const { allWordpressWpPromo, allWordpressPage, allWordpressWpLocation } = data
+  const content = allWordpressPage.edges[0].node
+  const promo = allWordpressWpPromo.edges[0].node
+  const locations = allWordpressWpLocation.edges
   return (
-    <Layout renderBanner={({ promo }) => <IndexPageBanner promo={promo} />}>
+    <Layout renderBanner={() => <IndexPageBanner promo={promo} />}>
       <Wrapper>
         <ContentSection>
           <div>
@@ -95,6 +97,17 @@ export const query = graphql`
             phone
             link
           }
+        }
+      }
+    }
+    allWordpressWpPromo(sort: { fields: date, order: DESC }, limit: 1) {
+      edges {
+        node {
+          title
+          featured_media {
+            source_url
+          }
+          content
         }
       }
     }

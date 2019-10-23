@@ -4,62 +4,48 @@ import { graphql } from "gatsby"
 import styled from "styled-components"
 
 import Layout from "../components/layouts/Layout"
-import { Wrapper, Media } from "../components/utilities"
+import { Wrapper } from "../components/utilities"
 import { InnerBanner } from "../components/elements"
 
 const ContentSection = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  grid-column-gap: 2rem;
   padding: 4rem 0;
-
-  ${Media.below.desktop`
-    grid-template-columns: 1fr;
-    grid-row-gap: 2rem;
-    grid-column-gap: 0;
-  `}
 `
 
-const IndexPageBanner = ({ promo }) => (
-  <InnerBanner image={promo.featured_media.source_url} height="500px">
-    <h1>{promo.title}</h1>
+const IndexPageBanner = ({ image, title }) => (
+  <InnerBanner image={image} height="500px">
+    <h1>{title}</h1>
   </InnerBanner>
 )
 
-const SurveyPage = ({ data }) => (
-  <Layout renderBanner={({ promo }) => <IndexPageBanner promo={promo} />}>
-    <Wrapper>
-      <ContentSection>HELLO</ContentSection>
-    </Wrapper>
-  </Layout>
-)
+const SurveyPage = ({ data }) => {
+  const { allWordpressPage } = data
+  const node = allWordpressPage.edges[0].node
+  const image = node.featured_media.source_url
+  const title = node.title
+  return (
+    <Layout
+      renderBanner={() => <IndexPageBanner image={image} title={title} />}
+    >
+      <Wrapper>
+        <ContentSection>
+          <div dangerouslySetInnerHTML={{ __html: node.content }}></div>
+        </ContentSection>
+      </Wrapper>
+    </Layout>
+  )
+}
 
 export default SurveyPage
 
 export const SurveyQuery = graphql`
   {
-    allWordpressPage(filter: { path: { eq: "/survey" } }) {
+    allWordpressPage(filter: { path: { eq: "/survey/" } }) {
       edges {
         node {
           title
           content
-        }
-      }
-    }
-    allWordpressWpLocation {
-      edges {
-        node {
-          title
-          acf {
-            latitude
-            longitude
-            address_one
-            address_two
-            city
-            state
-            zip
-            phone
-            link
+          featured_media {
+            source_url
           }
         }
       }
