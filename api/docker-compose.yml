@@ -6,10 +6,18 @@ ex_wp:
     - 8080:80
   volumes:
     - .:/var/www/html
+  environment:
+    - -Ehttp.port=8080
+    - -Ehttp.cors.enabled=true
+    - -Ehttp.cors.allow-origin=http://localhost:8000,http://localhost:3000
+    - -Ehttp.cors.allow-headers=Content-Type,Content-Length,Authorization
+    - -Ehttp.cors.allow-credentials=true
+
 ex_wp_db:
   image: mariadb
   environment:
     MYSQL_ROOT_PASSWORD: examplepass
+
 phpmyadmin:
   image: corbinu/docker-phpmyadmin
   links:
