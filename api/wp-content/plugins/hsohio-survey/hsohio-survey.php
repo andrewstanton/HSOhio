@@ -161,9 +161,10 @@ if(!class_exists("SurveyAPIClass")) {
                 ["field" => "surfing", "label" => "Surfing", "default" => 0],
                 ["field" => "water_skiing", "label" => "Water Skiing", "default" => 0],
                 ["field" => "cross-country_skiing", "label" => "Cross-Country Skiing", "default" => 0],
+                ["field" => "ice_skating", "label" => "Ice Skating", "default" => 0],
                 ["field" => "skiing", "label" => "Skiing", "default" => 0],
                 ["field" => "snowboarding", "label" => "Snowboarding", "default" => 0],
-                ["field" => "other_activity", "label" => "Other Activity", "default" => 0],
+                ["field" => "other_activity", "label" => "Other Activity"],
                 ["field" => "baseball", "label" => "Baseball", "default" => 0],
                 ["field" => "basketball", "label" => "Basketball", "default" => 0],
                 ["field" => "cheerleading", "label" => "Cheerleading", "default" => 0],
@@ -173,6 +174,13 @@ if(!class_exists("SurveyAPIClass")) {
                 ["field" => "hockey", "label" => "Hockey", "default" => 0],
                 ["field" => "lacrosse", "label" => "Lacrosse", "default" => 0],
                 ["field" => "rugby", "label" => "Rugby", "default" => 0],
+                ["field" => "soccer", "label" => "Soccer", "default" => 0],
+                ["field" => "softball", "label" => "Softball", "default" => 0],
+                ["field" => "tennis", "label" => "Tennis", "default" => 0],
+                ["field" => "volleyball", "label" => "Volleyball", "default" => 0],
+                ["field" => "water_polo", "label" => "Water Polo", "default" => 0],
+                ["field" => "wrestling", "label" => "Wrestling", "default" => 0],
+                ["field" => "other_team_sport", "label" => "Other Team Sport"]
             ];
         }
 
@@ -266,7 +274,7 @@ if(!class_exists("SurveyAPIClass")) {
         public static function get_percentage_array()
         {
             $fields = self::get_acf_array();
-            $nonActivities = ["email", "age_group", "resident"];
+            $nonActivities = ["email", "age_group", "resident", "other_activity", "other_team_sport"];
 
             $returnArr = [];
 

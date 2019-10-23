@@ -4,11 +4,15 @@ import { graphql } from "gatsby"
 import styled from "styled-components"
 
 import Layout from "../components/layouts/Layout"
-import { Wrapper } from "../components/utilities"
-import { InnerBanner } from "../components/elements"
+import { Wrapper, Card } from "../components/utilities"
+import { InnerBanner, SurveyForm } from "../components/elements"
 
 const ContentSection = styled.div`
   padding: 4rem 0;
+`
+
+const FormSection = styled.div`
+  padding-bottom: 2rem;
 `
 
 const IndexPageBanner = ({ image, title }) => (
@@ -30,6 +34,11 @@ const SurveyPage = ({ data }) => {
         <ContentSection>
           <div dangerouslySetInnerHTML={{ __html: node.content }}></div>
         </ContentSection>
+        <FormSection>
+          <Card>
+            <SurveyForm />
+          </Card>
+        </FormSection>
       </Wrapper>
     </Layout>
   )
