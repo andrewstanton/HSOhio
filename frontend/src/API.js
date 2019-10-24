@@ -3,7 +3,7 @@ import axios from "axios"
 export class AuthError extends Error {}
 
 const API = axios.create({
-  baseURL: `http://api.hsohio.com/wp-json/api_survey/v1`,
+  baseURL: `https://api.hsohio.com/wp-json/api_survey/v1`,
   responseType: "json",
 })
 
