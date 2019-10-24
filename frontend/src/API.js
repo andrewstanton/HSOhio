@@ -7,9 +7,6 @@ export class AuthError extends Error {}
 const API = axios.create({
   baseURL: `http://localhost:8080/wp-json/api_survey/v1`, //WP_API,
   responseType: "json",
-  headers: {
-    "Access-Control-Allow-Origin": "http://localhost:8000",
-  },
 })
 
 API.interceptors.response.use(

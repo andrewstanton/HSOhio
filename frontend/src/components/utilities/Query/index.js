@@ -50,10 +50,7 @@ class Query extends React.Component {
 
     // Send To Api
     try {
-      console.log("HELLO!")
       const result = await query(variables)
-      console.log("YO BO")
-      console.log({ result })
 
       // Set State For Results
       if (!this.state.unmounted) {

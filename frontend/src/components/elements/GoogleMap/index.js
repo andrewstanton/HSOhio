@@ -112,7 +112,6 @@ export const MapContainer = ({ google, locations = [], zoom = 8 }) => {
 
   // Rendering Bounds
   useEffect(() => {
-    console.log("RE_RENDER")
     const newBounds = new google.maps.LatLngBounds()
     locations.forEach(loc => {
       const coords = {

@@ -32,14 +32,18 @@ const StyledWrapper = styled(Wrapper)`
   }
 `
 
+const ZLink = styled(Link)`
+  z-index: 1000;
+`
+
 const Header = ({ siteMetadata = {} }) => {
   return (
     <>
       <StyledHeader>
         <StyledWrapper>
-          <Link to="/">
+          <ZLink to="/">
             <img src={logo} alt={siteMetadata.name} className="logo" />
-          </Link>
+          </ZLink>
         </StyledWrapper>
       </StyledHeader>
     </>

@@ -261,13 +261,20 @@ if(!class_exists("SurveyAPIClass")) {
             }
 
             // Do Percentage Counts
+            $returnArr = [];
             foreach($percentArr as $index => $value) {
                 $number = (int)$value["count"] !== 0 ? ((int)$value["count"] * 100) / $totalCount : 0;
                 $value["percentage"] = $number;
-                $percentArr[$index] = $value;
+                array_push($returnArr, $value);
             }
 
-            return $percentArr;
+            $response = new WP_REST_Response($returnArr);
+            
+            $response->set_status(200);
+            $response->header('Access-Control-Allow-Origin', '*');
+            $response->header('Access-Control-Allow-Headers', '*');
+            
+            return $response;
         }
 
         // Get Percentage Array
@@ -281,14 +288,16 @@ if(!class_exists("SurveyAPIClass")) {
             // Loop Thru Fields
             foreach($fields as $field) {
                 $name = $field["field"];
-                $returnArr[$name] = [
-                    "percentage" => 0,
-                    "count" => 0
-                ];
-            }
+                if(in_array($name, $nonActivities)) {
+                    continue;
+                }
 
-            foreach($nonActivities as $non) {
-                unset($returnArr[$non]);
+                $returnArr[$name] = [
+                    "field" => $name,
+                    "percentage" => 0,
+                    "count" => 0,
+                    "label" => $field["label"]
+                ];
             }
 
             return $returnArr;

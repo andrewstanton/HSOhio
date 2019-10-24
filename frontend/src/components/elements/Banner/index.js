@@ -6,12 +6,12 @@ import { rgba } from "polished"
 import { Color, Wrapper, Media } from "../../utilities"
 
 export const Banner = styled.div`
-${props =>
-  props.image
-    ? `
+  ${props =>
+    props.image
+      ? `
   background-image: url(${props.image});
 `
-    : `
+      : `
   background: grey;
 `}
   background-position: ${props => props.position || "center center"};
