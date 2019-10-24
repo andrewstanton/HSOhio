@@ -1,11 +1,11 @@
-//const { WP_API } = process.env
+const { WP_API } = process.env
 
 import axios from "axios"
 
 export class AuthError extends Error {}
 
 const API = axios.create({
-  baseURL: `http://localhost:8080/wp-json/api_survey/v1`, //WP_API,
+  baseURL: `http://${WP_API}/wp-json/api_survey/v1`,
   responseType: "json",
 })
 

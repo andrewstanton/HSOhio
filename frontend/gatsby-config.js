@@ -1,4 +1,4 @@
-//const { GA_TRACKING, GOOGLE_TAG_KEY, WP_API } = process.env
+const { GA_TRACKING, GOOGLE_TAG_KEY, WP_API } = process.env
 
 module.exports = {
   siteMetadata: {
@@ -21,24 +21,24 @@ module.exports = {
     {
       resolve: `gatsby-source-wordpress`,
       options: {
-        baseUrl: "localhost:8080", //WP_API,
+        baseUrl: WP_API, //,
         protocol: "http",
         hostingWPCOM: false,
         useACF: true,
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-google-analytics`,
-    //   options: {
-    //     trackingId: GA_TRACKING,
-    //   },
-    // },
-    // {
-    //   resolve: `gatsby-plugin-google-tagmanager`,
-    //   options: {
-    //     id: GOOGLE_TAG_KEY,
-    //     includeInDevelopment: true,
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: GA_TRACKING,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-tagmanager`,
+      options: {
+        id: GOOGLE_TAG_KEY,
+        includeInDevelopment: true,
+      },
+    },
   ],
 }
