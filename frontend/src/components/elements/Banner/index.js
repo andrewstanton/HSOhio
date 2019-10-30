@@ -20,7 +20,7 @@ export const Banner = styled.div`
   height: ${props => props.height || "auto"};
 `
 
-const StyledInnerBanner = styled(Banner)`
+export const StyledInnerBanner = styled(Banner)`
   display: flex;
   align-content: center;
   justify-content: center;
@@ -62,7 +62,7 @@ export const BottomBanner = ({ children, ...props }) => (
   </StyledBottomBanner>
 )
 
-const InnerBannerOverlay = styled.div`
+export const InnerBannerOverlay = styled.div`
   padding: 3rem;
   background: ${rgba(Color.pink, 0.8)};
   width: 40%;

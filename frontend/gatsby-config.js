@@ -21,24 +21,24 @@ module.exports = {
     {
       resolve: `gatsby-source-wordpress`,
       options: {
-        baseUrl: WP_API, //,
+        baseUrl: "localhost:8080", //WP_API,
         protocol: "http",
         hostingWPCOM: false,
         useACF: true,
       },
     },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: GA_TRACKING,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-tagmanager`,
-      options: {
-        id: GOOGLE_TAG_KEY,
-        includeInDevelopment: true,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-google-analytics`,
+    //   options: {
+    //     trackingId: GA_TRACKING,
+    //   },
+    // },
+    // {
+    //   resolve: `gatsby-plugin-google-tagmanager`,
+    //   options: {
+    //     id: GOOGLE_TAG_KEY,
+    //     includeInDevelopment: true,
+    //   },
+    // },
   ],
 }
