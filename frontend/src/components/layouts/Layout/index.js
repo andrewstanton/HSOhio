@@ -6,7 +6,7 @@ import styled from "styled-components"
 import Header from "../Header"
 import Footer from "../Footer"
 
-import { GlobalStyles, InnerBanner } from "../../elements"
+import { GlobalStyles } from "../../elements"
 import { Color, SEO } from "../../utilities"
 
 const Body = styled.div`
@@ -25,7 +25,7 @@ const Body = styled.div`
   }
 `
 
-const Layout = ({ children }) => {
+const Layout = ({ renderBanner, promo, children }) => {
   return (
     <StaticQuery
       query={graphql`
@@ -34,22 +34,11 @@ const Layout = ({ children }) => {
             name
             description
           }
-          allWordpressWpPromo(sort: { fields: date, order: DESC }, limit: 1) {
-            edges {
-              node {
-                title
-                featured_media {
-                  source_url
-                }
-                content
-              }
-            }
-          }
         }
       `}
       render={data => {
-        const { allWordpressWpPromo, wordpressSiteMetadata } = data
-        const promo = allWordpressWpPromo.edges[0].node
+        const { wordpressSiteMetadata } = data
+        // const promo = allWordpressWpPromo.edges[0].node
         return (
           <div>
             <GlobalStyles />
@@ -58,10 +47,7 @@ const Layout = ({ children }) => {
               description={wordpressSiteMetadata.description}
             />
             <Header siteMetadata={wordpressSiteMetadata} />
-            <InnerBanner image={promo.featured_media.source_url}>
-              <h1>{promo.title}</h1>
-              <div dangerouslySetInnerHTML={{ __html: promo.content }}></div>
-            </InnerBanner>
+            {renderBanner && renderBanner()}
             <Body>{children}</Body>
             <Footer siteMetadata={wordpressSiteMetadata} />
           </div>

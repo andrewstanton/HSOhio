@@ -16,6 +16,17 @@ const MODIFIER_CONFIG = {
       color: ${Color.white} !important;
       border: 2px solid ${Color.red};
     }
+
+    &:disabled {
+      color: ${Color.grey} !important;
+      border-color: ${Color.grey} !important;
+
+      &:hover {
+        cursor: default;
+        background: transparent;
+        color: ${Color.grey} !important;
+      }
+    }
   `,
   small: () => css`
     font-size: 0.9rem;
@@ -43,6 +54,10 @@ const buttonCSS = css`
     font-size: 1rem;
     padding: 1rem 1.5rem;
   `}
+
+  &:disabled {
+    opacity: 0.5;
+  }
 
   ${applyStyleModifiers(MODIFIER_CONFIG)}
 `

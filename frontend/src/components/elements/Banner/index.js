@@ -1,18 +1,26 @@
 import React from "react"
 import styled from "styled-components"
+import { darken } from "polished"
 import { rgba } from "polished"
 
 import { Color, Wrapper, Media } from "../../utilities"
 
 export const Banner = styled.div`
-  background: ${props => `url(${props.image})` || "grey"};
+  ${props =>
+    props.image
+      ? `
+  background-image: url(${props.image});
+`
+      : `
+  background: grey;
+`}
   background-position: ${props => props.position || "center center"};
   overflow: hidden;
   background-size: cover;
   height: ${props => props.height || "auto"};
 `
 
-const StyledInnerBanner = styled(Banner)`
+export const StyledInnerBanner = styled(Banner)`
   display: flex;
   align-content: center;
   justify-content: center;
@@ -22,9 +30,39 @@ const StyledInnerBanner = styled(Banner)`
     line-height: 2.25rem;
     margin-bottom: 1rem;
   }
+
+  position: relative;
 `
 
-const InnerBannerOverlay = styled.div`
+export const StyledBottomBanner = styled.div`
+  background: ${Color.pink};
+  color: ${Color.white};
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+
+  a {
+    color: ${Color.white};
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: ${darken(0.3, Color.pink)};
+    }
+  }
+`
+
+export const BottomBanner = ({ children, ...props }) => (
+  <StyledBottomBanner {...props}>
+    <Wrapper>{children}</Wrapper>
+  </StyledBottomBanner>
+)
+
+export const InnerBannerOverlay = styled.div`
   padding: 3rem;
   background: ${rgba(Color.pink, 0.8)};
   width: 40%;
@@ -38,10 +76,16 @@ const InnerBannerOverlay = styled.div`
   `}
 `
 
-export const InnerBanner = ({ children, height = "500px", ...props }) => (
+export const InnerBanner = ({
+  children,
+  bottomBanner,
+  height = "500px",
+  ...props
+}) => (
   <StyledInnerBanner height={height} {...props}>
     <Wrapper>
-      <InnerBannerOverlay>{children}</InnerBannerOverlay>
+      {children && <InnerBannerOverlay>{children}</InnerBannerOverlay>}
     </Wrapper>
+    {bottomBanner && bottomBanner()}
   </StyledInnerBanner>
 )
