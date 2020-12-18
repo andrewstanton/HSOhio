@@ -114,7 +114,13 @@ const RightIndexBanner = styled.div`
 
 const IndexPageBanner = ({ promo = null }) => (
   <IndexBanner height="600px">
-    <BackgroundHalf image={promo.featured_media.source_url}>
+    <BackgroundHalf
+      image={
+        promo.featured_media.localFile
+          ? promo.featured_media.localFile.childImageSharp.fluid.src
+          : null
+      }
+    >
       <LeftIndexBanner>
         <LeftOverlay>
           <h1>
@@ -159,7 +165,7 @@ const IndexPage = ({ data }) => {
       <Wrapper>
         <ContentSection>
           <div>
-            <h2>{content.title}</h2>
+            <h2 dangerouslySetInnerHTML={{ __html: content.title }}></h2>
             <div dangerouslySetInnerHTML={{ __html: content.content }}></div>
           </div>
           <div>
@@ -206,7 +212,13 @@ export const query = graphql`
         node {
           title
           featured_media {
-            source_url
+            localFile {
+              childImageSharp {
+                fluid(maxWidth: 1500) {
+                  src
+                }
+              }
+            }
           }
           content
         }
