@@ -81,7 +81,6 @@ export const ClinicList = ({
     {locations.map((loc, ix) => (
       <Clinic key={ix}>
         <h2>{loc.node.title}</h2>
-        {loc.node.title === "Avon" && <ComingSoon>Coming Soon...</ComingSoon>}
         <div>{loc.node.acf.address_one}</div>
         {loc.node.acf.address_two ? (
           <div>{loc.node.acf.address_two}</div>

@@ -6,7 +6,7 @@ import styled from "styled-components"
 import Header from "../Header"
 import Footer from "../Footer"
 
-import { GlobalStyles } from "../../elements"
+import { GlobalStyles, InnerBanner } from "../../elements"
 import { Color, SEO } from "../../utilities"
 
 const Body = styled.div`
@@ -25,7 +25,7 @@ const Body = styled.div`
   }
 `
 
-const Layout = ({ renderBanner, promo, children }) => {
+const Layout = ({ children }) => {
   return (
     <StaticQuery
       query={graphql`
@@ -34,11 +34,28 @@ const Layout = ({ renderBanner, promo, children }) => {
             name
             description
           }
+          allWordpressWpPromo(sort: { fields: date, order: DESC }, limit: 1) {
+            edges {
+              node {
+                title
+                featured_media {
+                  localFile {
+                    childImageSharp {
+                      fluid(maxWidth: 1500) {
+                        src
+                      }
+                    }
+                  }
+                }
+                content
+              }
+            }
+          }
         }
       `}
       render={data => {
-        const { wordpressSiteMetadata } = data
-        // const promo = allWordpressWpPromo.edges[0].node
+        const { allWordpressWpPromo, wordpressSiteMetadata } = data
+        const promo = allWordpressWpPromo.edges[0].node
         return (
           <div>
             <GlobalStyles />
@@ -47,7 +64,16 @@ const Layout = ({ renderBanner, promo, children }) => {
               description={wordpressSiteMetadata.description}
             />
             <Header siteMetadata={wordpressSiteMetadata} />
-            {renderBanner && renderBanner()}
+            <InnerBanner
+              image={
+                promo.featured_media.localFile
+                  ? promo.featured_media.localFile.childImageSharp.fluid.src
+                  : null
+              }
+            >
+              <h1 dangerouslySetInnerHTML={{ __html: promo.title }}></h1>
+              <div dangerouslySetInnerHTML={{ __html: promo.content }}></div>
+            </InnerBanner>
             <Body>{children}</Body>
             <Footer siteMetadata={wordpressSiteMetadata} />
           </div>
